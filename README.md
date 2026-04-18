@@ -15,8 +15,6 @@ Includes:
 ***
 
 
-***
-
 **HOW TO USE!!!**
 
 1. put link the link box thing
