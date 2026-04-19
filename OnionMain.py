@@ -30,7 +30,6 @@ READ_ONLY_BG_COLOR = "#444245"
 
 GEOMETRY_X = "600"
 GEOMETRY_Y = "500"
-CANVAS_SIZE_FIX = 2
 
 FRAME_MS_TIME = 225
 
@@ -41,8 +40,11 @@ class VideoDownloaderApp(ctk.CTk):
         super().__init__()
 
         self.protocol("WM_DELETE_WINDOW", self.save_data)
-        ctk.set_widget_scaling(1.0)
-        ctk.set_window_scaling(1.0)
+
+        current_scale = self._get_window_scaling()
+        print(current_scale)
+        ctk.set_widget_scaling(2/current_scale)
+        ctk.set_window_scaling(2/current_scale)
 
         # the data frfr
         with open('Data.json', 'r') as f:
@@ -82,11 +84,11 @@ class VideoDownloaderApp(ctk.CTk):
                 self.x = x
 
                 self.true_width = self.new_button._current_width + self.new_entry._current_width
-                self.true_height = self.new_button._current_height/CANVAS_SIZE_FIX
-                self.start_x = x - (self.true_width / CANVAS_SIZE_FIX)
+                self.true_height = self.new_button._current_height
+                self.start_x = x - (self.true_width)
 
-                self.new_button.place(x=x + self.new_entry._current_width - (self.true_width/CANVAS_SIZE_FIX), y=y)
-                self.new_entry.place(x=x - (self.true_width/CANVAS_SIZE_FIX), y=y)
+                self.new_button.place(x=x+self.new_entry._current_width, y=y)
+                self.new_entry.place(x=x, y=y)
 
 
             def open_explorer(self):
@@ -141,8 +143,8 @@ class VideoDownloaderApp(ctk.CTk):
         self.pil_onion = Image.open("Images/OnionIcon.png").resize((500, 300))
         self.itk_onion = ImageTk.PhotoImage(self.pil_onion)
         self.onion = self.canvas.create_image(
-            (int(GEOMETRY_X) / 2) * CANVAS_SIZE_FIX, # x position
-            530*CANVAS_SIZE_FIX, # y position
+            (int(GEOMETRY_X)), # x position
+            1060, # y position
             image=self.itk_onion,
             anchor="s"
         )
@@ -152,26 +154,26 @@ class VideoDownloaderApp(ctk.CTk):
         self.pil_l = Image.open("Images/Lm.png").resize((400, 400))
         self.itk_l = ImageTk.PhotoImage(self.pil_l)
         self.l = self.canvas.create_image(
-            (int(GEOMETRY_X) / 2) * CANVAS_SIZE_FIX, # x position
-            (666+66+66)*CANVAS_SIZE_FIX, # y position
+            (int(GEOMETRY_X)), # x position
+            (666+666+366), # y position
             image=self.itk_l,
             anchor="s"
         )
 
         # the heading
         self.label1 = self.canvas.create_text(
-            (int(GEOMETRY_X)/2)*CANVAS_SIZE_FIX, # x position
-            20*CANVAS_SIZE_FIX, # y position
+            (int(GEOMETRY_X)), # x position
+            40, # y position
             text="Onion downloada",
             font="Helvetica 35 bold",
             fill=MESSAGE_COLOR2,
-
+            anchor="center"
         )
 
         # im watching you... :eyes:
         self.label2 = self.canvas.create_text(
-            (int(GEOMETRY_X) / 2) * CANVAS_SIZE_FIX, # x position
-            370 * CANVAS_SIZE_FIX, # y position
+            (int(GEOMETRY_X)), # x position
+            740, # y position
             text="im watching you",
             font="Helvetica 20",
             fill=MESSAGE_COLOR
@@ -179,7 +181,7 @@ class VideoDownloaderApp(ctk.CTk):
 
         # youtube video title
         self.video_title_label = self.canvas.create_text(
-            (int(GEOMETRY_X)-190)/CANVAS_SIZE_FIX,  # x position
+            200,  # x position
             200,  # y position
             text="no video detected... :(",
             font="Helvetica 20",
@@ -200,8 +202,8 @@ class VideoDownloaderApp(ctk.CTk):
             placeholder_text_color=BOX_TEMP_TEXT_COLOR,
         )
         self.link_entry.place(
-            x=(int(GEOMETRY_X) + 400) / CANVAS_SIZE_FIX - (self.link_entry._current_width),
-            y=65
+            x=100,
+            y=63,
         )
         self.link_entry.bind("<KeyRelease>", self.update_title_label)
 
@@ -216,8 +218,8 @@ class VideoDownloaderApp(ctk.CTk):
             placeholder_text_color=BOX_TEMP_TEXT_COLOR
         )
         self.name_entry.place(
-            x=(int(GEOMETRY_X) + 250) / CANVAS_SIZE_FIX - (self.name_entry._current_width),
-            y=245
+            x=100,
+            y=255,
         )
 
         # format menu
@@ -232,8 +234,8 @@ class VideoDownloaderApp(ctk.CTk):
         )
         self.format_menu.set(".mp4")
         self.format_menu.place(
-            x=(int(GEOMETRY_X) + (self.name_entry._current_width - self.format_menu._current_width)) / CANVAS_SIZE_FIX,
-            y=245
+            x=(int(GEOMETRY_X)/2) + 127,
+            y=255
         )
 
         # pregress bar
@@ -247,7 +249,7 @@ class VideoDownloaderApp(ctk.CTk):
         )
         self.progress_bar.set(-100)
         self.progress_bar.place(
-            x=(int(GEOMETRY_X)-400) / CANVAS_SIZE_FIX,
+            x=100,
             y=315,
         )
 
@@ -261,8 +263,8 @@ class VideoDownloaderApp(ctk.CTk):
             placeholder_text="download progress will go here, start downloading!",
         )
         self.progress_entry.place(
-            x=(int(GEOMETRY_X)-400) / CANVAS_SIZE_FIX,
-            y=280,
+            x=100,
+            y=285,
         )
         self.progress_entry.configure(state="readonly")
 
@@ -276,14 +278,14 @@ class VideoDownloaderApp(ctk.CTk):
             width=72
         )
         self.download_button.place(
-            x=(int(GEOMETRY_X) + (self.progress_entry._current_width - self.download_button._current_width)) / CANVAS_SIZE_FIX,
-            y=280
+            x=(int(GEOMETRY_X) / 2) + 127,
+            y=285
         )
 
         # video fpb
         self.video_fpb = FilePathButton(
             self,
-            x=(int(GEOMETRY_X) + 220) / CANVAS_SIZE_FIX,
+            x=(int(GEOMETRY_X)/2)+20,
             y=100
         )
         self.video_fpb.update_idletasks()
@@ -301,8 +303,8 @@ class VideoDownloaderApp(ctk.CTk):
         self.pil_video_icon = Image.open("Images/VideoIcon.png")
         self.itk_video_icon = ImageTk.PhotoImage(self.pil_video_icon)
         self.video_icon = self.canvas.create_image(
-            (self.video_fpb.start_x - 15) * CANVAS_SIZE_FIX,  # x position
-            (self.video_fpb.y + self.video_fpb.true_height + 5) * CANVAS_SIZE_FIX,  # y position
+            (int(GEOMETRY_X)) + 20,  # x position
+            240,  # y position
             image=self.itk_video_icon,
             anchor="s"
         )
@@ -310,7 +312,7 @@ class VideoDownloaderApp(ctk.CTk):
         # sound fpb
         self.sound_fpb = FilePathButton(
             self,
-            x=(int(GEOMETRY_X) + 220) / CANVAS_SIZE_FIX,
+            x=(int(GEOMETRY_X)/2)+20,
             y=140)
         self.sound_fpb.update_idletasks()
         self.sound_fpb.new_entry.insert(0, self.data["sound_path"])
@@ -319,8 +321,8 @@ class VideoDownloaderApp(ctk.CTk):
         self.pil_sound_icon = Image.open("Images/SoundIcon.png")
         self.itk_sound_icon = ImageTk.PhotoImage(self.pil_sound_icon)
         self.sound_icon = self.canvas.create_image(
-            (self.sound_fpb.start_x - 15) * CANVAS_SIZE_FIX,  # x position
-            (self.sound_fpb.y + self.sound_fpb.true_height + 5) * CANVAS_SIZE_FIX,  # y position
+            (int(GEOMETRY_X))+20,  # x position
+            320,  # y position
             image=self.itk_sound_icon,
             anchor="s"
         )
@@ -328,7 +330,7 @@ class VideoDownloaderApp(ctk.CTk):
         # music fpb
         self.music_fpb = FilePathButton(
             self,
-            x=(int(GEOMETRY_X) + 220) / CANVAS_SIZE_FIX,
+            x=(int(GEOMETRY_X)/2)+20,
             y=180)
         self.music_fpb.update_idletasks()
         self.music_fpb.new_entry.insert(0, self.data["music_path"])
@@ -337,8 +339,8 @@ class VideoDownloaderApp(ctk.CTk):
         self.pil_music_icon = Image.open("Images/MusicIcon.png")
         self.itk_music_icon = ImageTk.PhotoImage(self.pil_music_icon)
         self.music_icon = self.canvas.create_image(
-            (self.music_fpb.start_x - 15) * CANVAS_SIZE_FIX,  # x position
-            (self.music_fpb.y + self.music_fpb.true_height + 6) * CANVAS_SIZE_FIX,  # y position
+            (int(GEOMETRY_X)) + 20,  # x position
+            400,  # y position
             image=self.itk_music_icon,
             anchor="s"
         )
@@ -354,7 +356,7 @@ class VideoDownloaderApp(ctk.CTk):
             hover_color=BUTTON_HOVER_COLOR
         )
         self.is_music_toggle.place(
-            x=(int(GEOMETRY_X)-400) / CANVAS_SIZE_FIX,
+            x=(int(GEOMETRY_X)-400),
             y=180
         )
 
@@ -366,8 +368,8 @@ class VideoDownloaderApp(ctk.CTk):
             hover_color=BUTTON_HOVER_COLOR
         )
         self.settings_button.place(
-            x=(int(GEOMETRY_X) - 259) / CANVAS_SIZE_FIX - (self.settings_button.current_width / CANVAS_SIZE_FIX),
-            y=210
+            x=(int(GEOMETRY_X) - 500),
+            y=222
         )
         self.settings_button.bind("<Button-1>", self.open_settings_frame)
         self.settings_button.bind("<Leave>", self.hide_settings_frame)
@@ -377,8 +379,8 @@ class VideoDownloaderApp(ctk.CTk):
 
         self.settings_frame = ctk.CTkFrame(self, 400, 200)
         self.settings_frame.place(
-            x=int(GEOMETRY_X) / CANVAS_SIZE_FIX - (self.settings_frame._current_width / CANVAS_SIZE_FIX),
-            y=10
+            x=(int(GEOMETRY_X)/2) - 200,
+            y=21
         )
         self.settings_frame.bind("<Enter>", self.is_on_settings_frame)
         self.settings_frame.bind("<Leave>", self.isnt_on_settings_frame)
@@ -680,8 +682,8 @@ class VideoDownloaderApp(ctk.CTk):
                 info = self.widget_positions[widget]
 
                 widget.place(
-                    x=int(info["x"])/CANVAS_SIZE_FIX,
-                    y=int(info["y"])/CANVAS_SIZE_FIX
+                    x=int(info["x"])/2,
+                    y=int(info["y"])/2
                 )
 
 
