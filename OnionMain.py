@@ -105,7 +105,7 @@ class VideoDownloaderApp(ctk.CTk):
         self.geometry(GEOMETRY_X + "x" + GEOMETRY_Y)
         self.configure(fg_color=BACKGROUND_COLOR)
 
-        self.icon_image = PhotoImage(file='OnionIcon.png')  # Storing it in self keeps it alive
+        self.icon_image = PhotoImage(file='Images/OnionIcon.png')  # Storing it in self keeps it alive
         self.after(200, lambda: self.iconphoto(False, self.icon_image))
 
         # other
@@ -390,8 +390,8 @@ class VideoDownloaderApp(ctk.CTk):
             hover_color=BUTTON_HOVER_COLOR
         )
         self.is_music_toggle.place(
-            x=(int(GEOMETRY_X)-400),
-            y=180
+            x=(int(GEOMETRY_X)-500),
+            y=190
         )
 
         # setting button
