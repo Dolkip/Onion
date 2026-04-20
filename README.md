@@ -3,7 +3,9 @@
 **Windows Setup**
 
 go to Releases, click on the "onion.exe" release download [`Onion.exe`], and then just open it!
-OR
+
+*OR*
+
 after downloading, go to `[Onion]` file, open [`Onion.exe`]! :D
 
 **Linux Setup**
