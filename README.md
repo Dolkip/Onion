@@ -2,7 +2,9 @@
 
 **Windows Setup**
 
-go to `[Onion]` file, open [`Onion.exe`] and it'll open! :D
+go to Releases, click on the "onion.exe" release download [`Onion.exe`], and then just open it!
+OR
+after downloading, go to `[Onion]` file, open [`Onion.exe`]! :D
 
 **Linux Setup**
 <sub>(might work for mac too, but it isn't tested)<sub>
