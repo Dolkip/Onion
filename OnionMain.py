@@ -37,6 +37,8 @@ GEOMETRY_Y = "500"
 
 FRAME_MS_TIME = 225
 
+EVIL_MODE = False
+
 pytubefix.request.default_range_size = 1048576
 
 if sys.platform == "win32":
@@ -172,6 +174,7 @@ class VideoDownloaderApp(ctk.CTk):
         # it's him
         if random.randint(1, 69420) == 69420:
             self.pil_onion = Image.open(resource_path("Images/EvilOnionIcon.png")).resize((500, 300))
+            EVIL_MODE = True
         else:
             self.pil_onion = Image.open(resource_path("Images/OnionIcon.png")).resize((500, 300))
         self.itk_onion = ImageTk.PhotoImage(self.pil_onion)
