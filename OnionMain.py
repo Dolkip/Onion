@@ -171,7 +171,7 @@ class VideoDownloaderApp(ctk.CTk):
 
         # it's him
         if random.randint(1, 69420) == 69420:
-            self.pil_onion = Image.open(resource_path("Images/EvilOnionIcon.png")).resize(500, 300))
+            self.pil_onion = Image.open(resource_path("Images/EvilOnionIcon.png")).resize((500, 300))
         else:
             self.pil_onion = Image.open(resource_path("Images/OnionIcon.png")).resize((500, 300))
         self.itk_onion = ImageTk.PhotoImage(self.pil_onion)
